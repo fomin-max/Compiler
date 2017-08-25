@@ -17,17 +17,9 @@ $(document).ready(function() {
     var newstr = "";
     mystr = mystr.replace(/(var|let|function|typeof|new|if|for|while|break|do|continue|switch|case)([^a-z0-9\$_])/gi,
 '<span style="color:blue">$1</span>$2');
-// всякие скобочки
-//     mystr = mystr.replace(/(\{|\}|\]|\[|\|)/gi,'<span style="color: #c4c3ca">$1</span>');
-//     // однострочные комментарии
-//     mystr = mystr.replace(/(\/\/[^])/g,'<span style="color:orange">$1</span>');
-    // строки
     // функции (когда после идентификатора идет скобка)
     mystr = mystr.replace(/([a-z\_\$][a-z0-9_]*)\(/gi,'<span style="color:darkseagreen">$1</span>(');
-    // mystr = mystr.replace(/;/g,';<br>');
     mystr = mystr.replace(/(return)([^a-z0-9\$_])/g,'<span style="color:hotpink">return </span>');
-
-    // mystr = mystr.replace(/(,|\+|\*|\(|\)| = |}; |;|-|\.)/g, '<span style="color:white">$1</span>');
     mystr = mystr.replace(/(,|\+|\*|\(|\)| = |}; |;|-|%| \/ |\.| \/ )/g, '<span style="color:white">$1</span>');
     mystr = mystr.replace(/(console)/g, '<span style="color:greenyellow">console</span>');
     mystr = mystr.replace(/([0-9])/g, '<span style="color:yellow">$1</span>');
@@ -50,7 +42,6 @@ $(document).ready(function() {
                     }
                 }
                 newstr = newstr.replace(/(<br>|style="color:white"|style="color:yellow"|style="color:darkseagreen"|style="color:blue"|style="color:greenyellow"|style="color:hotpink"|style="color:cadetblue")/g, 'style="color:green"');
-                // newstr = newstr.replace(/(";"<br>)/g, ';');
                 newstr = newstr + '</span>';
                 mystr = mystr.slice(0, q) + newstr + mystr.slice(j);
                 newstr = "";
@@ -65,14 +56,12 @@ $(document).ready(function() {
             if ((mystr[q] == '/')&&(mystr[q + 1] == '/')) {
                 newstr = '<span style="color:gray">';
                 begin = q - 1;
-                // k = q + 23;
                 while (mystr[q] != '|') {
                     newstr = newstr + mystr[q];
                     q++;
                 }
                 end = q + 2;
                 newstr = newstr.replace(/(style="color:white"|style="color:yellow"|style="color:darkseagreen"|style="color:blue"|style="color:greenyellow"|style="color:hotpink"|style="color:cadetblue")/g, 'style="color:gray"');
-                // newstr = newstr.slice(0, newstr.length) + '.</span><br>' + newstr.slice(newstr.length);
                 newstr = newstr + '</span><br>';
                 mystr = mystr.slice(0, begin) + newstr + mystr.slice(end);
                 newstr = "";
@@ -106,7 +95,6 @@ $(document).ready(function() {
             pix = 40 * c;
             pix = pix + '';
             mystr = mystr.slice(0, j) + '<div style="padding-left: ' + pix + 'px">' + mystr[j] + mystr.slice(j + 1);
-
             while (mystr[k] != '{'){
                 if (mystr[k] == '}') {
                     mystr = mystr.slice(0, k+2) + mystr[k+2] + "</div>" + mystr.slice(k+3);
@@ -119,7 +107,6 @@ $(document).ready(function() {
 
         i++;
     }
-    // mystr = mystr.replace(/( \/ )/g, '<span style="color:white">$1</span>');
     mystr = mystr.replace(/({<br>)/g, '<span style="color:white">{</span><br>');
     mystr = mystr.replace(/<span style="color:white">};/g, '<span style="color:white; position: relative; left: -40px">};');
 
